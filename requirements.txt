@@ -1,0 +1,8 @@
+-r optional_nodes/face_fix/requirements.txt
+-r optional_nodes/general_utilities/requirements.txt
+-r optional_nodes/llm_nodes/requirements.txt
+-r optional_nodes/long_video/requirements.txt
+-r optional_nodes/lora_training/requirements.txt
+-r optional_nodes/ltx_minimax_tools/requirements.txt
+-r optional_nodes/music_audio/requirements.txt
+-r optional_nodes/ui_tools/requirements.txt

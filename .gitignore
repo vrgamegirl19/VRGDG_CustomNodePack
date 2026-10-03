@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+node_modules/
+optional_nodes/ui_tools/flow_automation/inputs/*
+!optional_nodes/ui_tools/flow_automation/inputs/.gitkeep
+optional_nodes/ui_tools/flow_automation/outputs/*
+!optional_nodes/ui_tools/flow_automation/outputs/.gitkeep
