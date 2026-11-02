@@ -1,112 +1,111 @@
 # VRGDG Custom Node Pack
 
-Private development pack for ComfyUI. Not ready for public release.
+**167 ComfyUI nodes for image and video processing, face repair, audio, local LLMs, LoRA training, and creative workflow tools.**
 
-Contains the eight `optional_nodes` packs copied from
-[`comfyui-vrgamedevgirl`, branch `Beta2.0`](https://github.com/vrgamegirl19/comfyui-vrgamedevgirl/tree/Beta2.0/optional_nodes)
-at commit `99c01f654b16f65ae6a73f636563d208934c20c7`.
-The source repository and its branches are unchanged.
+Build face-repair workflows, process long videos, prepare music and speech, create prompts, train LoRAs, and add practical image, text, JSON, and batch utilities to your ComfyUI workflows.
 
-## Included packs
+## What's included
 
-| Pack | Nodes | Tools |
+| Node group | Nodes | Features |
 | --- | ---: | --- |
-| `face_fix` | 20 | Face repair, face crops, video enhancement, image paste-back |
-| `general_utilities` | 70 | Text/JSON, switches, grain, sharpening, color matching, LUTs, image/video comparison, audio splitting |
-| `llm_nodes` | 6 | Qwen, VLM, GGUF, local LLM, llama.cpp diagnostics |
-| `long_video` | 12 | Overlap meta-batches, long-video loading, LongShot directors |
-| `lora_training` | 14 | LTX, Krea and Z-Image LoRA training, installers, dataset creation |
-| `ltx_minimax_tools` | 16 | LTX guides and looping, sigma presets, MiniMax chunks, still images, continuation trimming |
-| `music_audio` | 19 | YuE2, SheetSage2, MiniMax Music 3, VoxCPM2, audio loading/saving |
-| `ui_tools` | 10 | Video Editor, Prompt Creator, Start Image Storyboard, Node Canvas |
+| Face Fix & Video Enhance | 20 | Face detection and tracking, repair crops, enhancement anchors, video restoration, and image paste-back |
+| General Utilities | 70 | Text and JSON tools, image switches, film grain, sharpening, color matching, LUTs, image/video comparison, and audio splitting |
+| Local LLMs | 6 | Qwen prompt generation, VLM and GGUF tools, local LLM connections, and llama.cpp diagnostics |
+| Long Video | 12 | Overlapping video batches, audio windows, long-video loading, and LongShot planning tools |
+| LoRA Training | 14 | LTX, Krea, and Z-Image training tools, dataset creation, installers, and preview grids |
+| LTX & MiniMax H3 | 16 | Guidance and sigma controls, first/last-frame guides, looping, ingredient grids, connected chunks, still images, and continuation trimming |
+| Music & Audio | 19 | YuE2, SheetSage2, MiniMax Music 3 helpers, VoxCPM2 speech, and audio loading/saving |
+| Workflow UIs | 10 | Video Editor, Prompt Creator, Start Image Storyboard, and Node Canvas prototype |
 
-Node identifiers are preserved for existing workflows. Examples remain in each
-pack's `workflows/` folder. Model weights are not included, apart from the face
-detection assets already bundled with the source pack.
+## Installation
 
-## Install the complete pack
+### ComfyUI Manager
 
-Use a GitHub account with access to this private repository. From
-`ComfyUI/custom_nodes`, run:
+1. Open **ComfyUI Manager** and search for **VRGDG Custom Node Pack** or `vrgdg-customnodepack`.
+2. Install the pack and its dependencies.
+3. Restart ComfyUI and refresh the browser with **Ctrl+F5**.
+
+If the pack is not listed yet, use the manual installation below.
+
+### Manual installation
+
+From your `ComfyUI/custom_nodes` directory, run:
 
 ```sh
 git clone https://github.com/vrgamegirl19/VRGDG_CustomNodePack.git
-```
-
-Install dependencies with the Python environment that runs ComfyUI:
-
-```sh
 python -m pip install -r VRGDG_CustomNodePack/requirements.txt
 ```
 
-For Windows portable, run this from `ComfyUI_windows_portable` instead:
+Use the Python environment that runs ComfyUI, then restart ComfyUI and refresh your browser.
+
+### Windows portable
+
+Run these commands from your `ComfyUI_windows_portable` directory:
 
 ```powershell
+git -C .\ComfyUI\custom_nodes clone https://github.com/vrgamegirl19/VRGDG_CustomNodePack.git
 .\python_embeded\python.exe -m pip install -r .\ComfyUI\custom_nodes\VRGDG_CustomNodePack\requirements.txt
 ```
 
-Restart ComfyUI and refresh the browser. The root `__init__.py` registers all
-eight packs; `web/` serves their frontend extensions. An INI file is not required
-for ComfyUI node registration.
+Restart ComfyUI and refresh your browser with **Ctrl+F5**.
 
-If a pack has a missing import dependency, the other packs still load. Read the
-startup warning and install the dependency using ComfyUI's Python. Installing
-`llama-cpp-python` may require a compatible wheel or local build tools.
+## Getting started
 
-## Additional setup
+Right-click the ComfyUI canvas and search for the node you want to use. Node categories include **VRGDG** and **VRGameDevGirl**.
 
-- Install [ComfyUI-LTXVideo](https://github.com/Lightricks/ComfyUI-LTXVideo)
-  for the LTX looping sampler in `ltx_minimax_tools`.
-- Install [ComfyUI-VideoHelperSuite](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite)
-  for long-video loading and workflows using VHS nodes.
-- Training nodes need their external training tools and model files configured
-  through the existing installer/settings nodes.
-- See [YuE2 setup](optional_nodes/music_audio/Yue2/README.md) for its separate
-  generation and transcription runtimes.
-- Browser automation has separate setup in
-  [flow_automation/README.md](optional_nodes/ui_tools/flow_automation/README.md).
-- Builder-integrated UI actions and example workflows can also require nodes
-  and routes from `comfyui-vrgamedevgirl` or other packs named in the workflow.
-- Put your `.cube` LUT files in `optional_nodes/general_utilities/LUTS/`.
+Start with one of the included workflows:
 
-Avoid installing a second copy of these optional packs alongside the complete
-pack: duplicate node identifiers and frontend extensions can conflict. The
-reduced `Beta2.0` source pack excludes these optional nodes; older installations
-that still load them should use only one copy.
+- [Face Fix](optional_nodes/face_fix/workflows/VRGDG_FaceFix_Workflow.json)
+- [Match Grain — Image](optional_nodes/general_utilities/workflows/match%20grain/Match_Grain_Image.json)
+- [Match Grain — Video](optional_nodes/general_utilities/workflows/match%20grain/Match_Grain_Video.json)
+- [MiniMax Music 3 Advanced Tuning](optional_nodes/music_audio/workflows/MiniMax_Music3_Advanced_Tuning_VRGDG.json)
+- [VoxCPM2 Voice Clone / TTS](optional_nodes/music_audio/workflows/VoxCPM2/VRGDG_VoxCPM_TTS.json)
+- [YuE2 Starter](optional_nodes/music_audio/workflows/Yue2/VRGDG_YuE2_Starter.json)
+- [LoRA Training Workflows](optional_nodes/lora_training/workflows/Lora_Training/UpdatedWorkflows/)
 
-## Install individual packs
+Download a workflow JSON and drag it onto the ComfyUI canvas. Install any additional nodes named by that workflow and select your local model files before running it.
 
-To use only selected packs, keep this repository outside `custom_nodes` and copy
-the chosen folders into `ComfyUI/custom_nodes`. For example, in PowerShell:
+## Models and additional setup
 
-```powershell
-Copy-Item -Recurse .\VRGDG_CustomNodePack\optional_nodes\face_fix .\ComfyUI\custom_nodes\vrgdg_face_fix
-python -m pip install -r .\ComfyUI\custom_nodes\vrgdg_face_fix\requirements.txt
+Each tool has its own model and runtime requirements. Generation model weights are separate downloads; the pack includes the bundled face-detection assets.
+
+- **LTX looping:** requires [ComfyUI-LTXVideo](https://github.com/Lightricks/ComfyUI-LTXVideo).
+- **Long-video loading and VHS workflows:** require [ComfyUI-VideoHelperSuite](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite).
+- **Local LLMs:** configure a supported model or local server. GGUF tools require `llama-cpp-python`; installation may need a compatible wheel or local build tools.
+- **LoRA training:** configure the external training tools, datasets, and model paths using the relevant installer and settings nodes.
+- **YuE2 and SheetSage2:** follow the [setup guide](optional_nodes/music_audio/Yue2/README.md) for their generation and transcription runtimes.
+- **Browser automation:** follow the [browser automation guide](optional_nodes/ui_tools/flow_automation/README.md).
+- **LUTs:** place your `.cube` files in `optional_nodes/general_utilities/LUTS/`.
+- **Builder integrations:** some UI actions and workflows also use nodes or routes from [VRGameDevGirl's AI Video Builder](https://github.com/vrgamegirl19/comfyui-vrgamedevgirl).
+
+## Updating
+
+From the installed `VRGDG_CustomNodePack` folder, run:
+
+```sh
+git pull
+python -m pip install -r requirements.txt
 ```
 
-Use ComfyUI's Python, then restart. Each folder retains its own registration,
-frontend assets, requirements and workflows.
+Use ComfyUI's Python environment. For Windows portable, run these commands from `ComfyUI_windows_portable`:
 
-## Development notes
+```powershell
+git -C .\ComfyUI\custom_nodes\VRGDG_CustomNodePack pull
+.\python_embeded\python.exe -m pip install -r .\ComfyUI\custom_nodes\VRGDG_CustomNodePack\requirements.txt
+```
 
-The imported Python code stays under `optional_nodes/`. Root `web/` contains
-deployment copies of each pack's frontend assets with script import paths
-adjusted for ComfyUI's extension URLs. Keep those copies in sync when editing
-frontend files. The LoRA pack includes the two internal workflow templates its
-code references. The LTX extension lookup uses ComfyUI's configured custom-node
-directories so it works from the nested pack layout.
+Restart ComfyUI and refresh the browser after updating.
 
-Validation covers Python syntax, the included unit tests, node registration and
-frontend import paths. Model generation and training require separate runtime
-testing with the relevant models and tools.
+## Troubleshooting
 
-## Licensing and visibility
+- **Nodes are missing:** check the ComfyUI startup log for the pack name and missing dependencies. Install requirements using the same Python that starts ComfyUI.
+- **UI buttons or panels are missing:** restart ComfyUI, then refresh with **Ctrl+F5**.
+- **A workflow reports missing nodes:** install the additional node packs required by that workflow.
+- **Duplicate nodes or extensions:** keep one installed copy of each pack. Older versions of `comfyui-vrgamedevgirl` may already include these node identifiers.
+- **Generation or training cannot start:** check the selected model files, external runtime paths, and the setup instructions for that tool.
 
-Imported code and documentation retain the source terms in
-[`optional_nodes/LICENSE`](optional_nodes/LICENSE). Frontend deployment copies
-retain those terms in [`web/LICENSE`](web/LICENSE). The repository's existing
-Apache 2.0 [`LICENSE`](LICENSE) is retained for the new repository scaffolding;
-it does not replace the imported code's license or third-party asset licenses.
+For help or bug reports, [open an issue](https://github.com/vrgamegirl19/VRGDG_CustomNodePack/issues) with the affected node name, the error traceback, your ComfyUI and Python versions, and a minimal workflow when possible. Remove API keys and other secrets before sharing logs or workflows.
 
-This repository must remain private during development. There are no release,
-registry publication or deployment workflows in this pack.
+## License
+
+The node code and associated documentation retain the [VRGameDevGirl Community and Commercial License](optional_nodes/LICENSE). Frontend assets retain the terms in [web/LICENSE](web/LICENSE). Repository scaffolding is covered by the root [Apache 2.0 license](LICENSE). Third-party components and model weights retain their respective licenses.
