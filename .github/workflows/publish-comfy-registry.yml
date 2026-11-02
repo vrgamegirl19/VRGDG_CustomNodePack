@@ -1,0 +1,81 @@
+name: Publish to Comfy Registry
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - pyproject.toml
+      - .github/workflows/publish-comfy-registry.yml
+  pull_request:
+    paths:
+      - pyproject.toml
+      - .github/workflows/publish-comfy-registry.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: comfy-registry-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate registry metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check metadata and Python syntax
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+          import re
+          import tomllib
+
+          root = Path.cwd()
+          metadata = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
+          project = metadata["project"]
+          assert project["name"] == "vrgdg-customnodepack", "Unexpected registry node ID"
+          assert re.fullmatch(r"\d+\.\d+\.\d+", project["version"]), "Use an X.Y.Z version"
+          assert metadata["tool"]["comfy"]["PublisherId"] == "vrgamedevgirl2", "Unexpected publisher ID"
+          assert project["urls"]["Repository"] == "https://github.com/vrgamegirl19/VRGDG_CustomNodePack"
+          assert (root / project["license"]["file"]).is_file(), "License file is missing"
+          assert (root / "__init__.py").is_file(), "ComfyUI entry point is missing"
+          assert (root / "web").is_dir(), "Frontend assets are missing"
+          for source in root.rglob("*.py"):
+              ast.parse(source.read_text(encoding="utf-8-sig"), filename=str(source))
+          print(f"Validated {project['name']} {project['version']}")
+          print("Metadata and syntax checks do not replace ComfyUI runtime testing.")
+          PY
+
+  publish:
+    name: Publish manually approved version
+    # Pushes and pull requests validate only. Run workflow on main to publish.
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check Registry API key is configured
+        env:
+          REGISTRY_ACCESS_TOKEN: ${{ secrets.REGISTRY_ACCESS_TOKEN }}
+        run: |
+          if [ -z "$REGISTRY_ACCESS_TOKEN" ]; then
+            echo "::error::Add your Comfy Registry publishing API key as the repository Actions secret REGISTRY_ACCESS_TOKEN."
+            exit 1
+          fi
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Publish using the official Comfy action
+        uses: Comfy-Org/publish-node-action@d2366e7abb6ab16f3bb03e3520ae25c8cf749bc9
+        with:
+          skip_checkout: "true"
+          personal_access_token: ${{ secrets.REGISTRY_ACCESS_TOKEN }}
