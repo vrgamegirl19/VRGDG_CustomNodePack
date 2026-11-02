@@ -1,0 +1,30 @@
+[project]
+name = "vrgdg-customnodepack"
+description = "VRGDG ComfyUI nodes for face repair, image and video utilities, local LLMs, long video, LoRA training, LTX and MiniMax tools, music, audio, and workflow UIs."
+version = "1.0.0"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+# Flattened from requirements.txt and its eight included pack requirements.
+dependencies = [
+    "accelerate",
+    "huggingface_hub",
+    "imageio",
+    "imageio-ffmpeg",
+    "kornia",
+    "librosa",
+    "llama-cpp-python",
+    "opencv-python",
+    "soundfile",
+    "transformers",
+    "voxcpm",
+]
+
+[project.urls]
+Repository = "https://github.com/vrgamegirl19/VRGDG_CustomNodePack"
+"Bug Tracker" = "https://github.com/vrgamegirl19/VRGDG_CustomNodePack/issues"
+Documentation = "https://github.com/vrgamegirl19/VRGDG_CustomNodePack/blob/main/README.md"
+
+[tool.comfy]
+# The publishing API key belongs in REGISTRY_ACCESS_TOKEN, never in this file.
+PublisherId = "vrgamedevgirl2"
+DisplayName = "VRGDG Custom Node Pack"
