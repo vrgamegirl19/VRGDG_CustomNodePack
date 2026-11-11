@@ -1,6 +1,6 @@
 # VRGDG Custom Node Pack
 
-**167 ComfyUI nodes for image and video processing, face repair, audio, local LLMs, LoRA training, and creative workflow tools.**
+**171 ComfyUI nodes for image and video processing, face repair, audio, local LLMs, LoRA training, and creative workflow tools.**
 
 Build face-repair workflows, process long videos, prepare music and speech, create prompts, train LoRAs, and add practical image, text, JSON, and batch utilities to your ComfyUI workflows.
 
@@ -13,7 +13,7 @@ Build face-repair workflows, process long videos, prepare music and speech, crea
 | Local LLMs | 6 | Qwen prompt generation, VLM and GGUF tools, local LLM connections, and llama.cpp diagnostics |
 | Long Video | 12 | Overlapping video batches, audio windows, long-video loading, and LongShot planning tools |
 | LoRA Training | 14 | LTX, Krea, and Z-Image training tools, dataset creation, installers, and preview grids |
-| LTX & MiniMax H3 | 16 | Guidance and sigma controls, first/last-frame guides, looping, ingredient grids, connected chunks, still images, and continuation trimming |
+| LTX & MiniMax H3 | 20 | Guidance and sigma controls, first/last-frame guides, looping, ingredient grids, connected chunks, still images, continuation trimming, and the DMAD + Long Scenes pass 2 prompt and song / built-in audio switch |
 | Music & Audio | 19 | YuE2, SheetSage2, MiniMax Music 3 helpers, VoxCPM2 speech, and audio loading/saving |
 | Workflow UIs | 10 | Video Editor, Prompt Creator, Start Image Storyboard, and Node Canvas prototype |
 
@@ -58,6 +58,7 @@ Start with one of the included workflows:
 - [Face Fix](optional_nodes/face_fix/workflows/VRGDG_FaceFix_Workflow.json)
 - [Match Grain — Image](optional_nodes/general_utilities/workflows/match%20grain/Match_Grain_Image.json)
 - [Match Grain — Video](optional_nodes/general_utilities/workflows/match%20grain/Match_Grain_Video.json)
+- [MiniMax H3 DMAD + Long Scenes (2 Pass)](optional_nodes/ltx_minimax_tools/workflows/MiniMaxH3_DMAD_LongScene_2Pass.json)
 - [MiniMax Music 3 Advanced Tuning](optional_nodes/music_audio/workflows/MiniMax_Music3_Advanced_Tuning_VRGDG.json)
 - [VoxCPM2 Voice Clone / TTS](optional_nodes/music_audio/workflows/VoxCPM2/VRGDG_VoxCPM_TTS.json)
 - [YuE2 Starter](optional_nodes/music_audio/workflows/Yue2/VRGDG_YuE2_Starter.json)
@@ -70,6 +71,7 @@ Download a workflow JSON and drag it onto the ComfyUI canvas. Install any additi
 Each tool has its own model and runtime requirements. Generation model weights are separate downloads; the pack includes the bundled face-detection assets.
 
 - **LTX looping:** requires [ComfyUI-LTXVideo](https://github.com/Lightricks/ComfyUI-LTXVideo).
+- **MiniMax H3 DMAD + Long Scenes workflow:** also requires [VRGameDevGirl's AI Video Builder](https://github.com/vrgamegirl19/comfyui-vrgamedevgirl) (VRGDG H3 Chunked Pass 2 and the latent upscaler loader), [Comfyui_Minimax_h3_latent_Upscaler](https://github.com/LBH-123-AI/Comfyui_Minimax_h3_latent_Upscaler), ComfyUI-KJNodes and ComfyUI-VideoHelperSuite. The workflow's first note lists the model files.
 - **Long-video loading and VHS workflows:** require [ComfyUI-VideoHelperSuite](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite).
 - **Local LLMs:** configure a supported model or local server. GGUF tools require `llama-cpp-python`; installation may need a compatible wheel or local build tools.
 - **LoRA training:** configure the external training tools, datasets, and model paths using the relevant installer and settings nodes.

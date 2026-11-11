@@ -20,7 +20,7 @@ Packs can be installed alongside the main pack and each other.
 | `llm_nodes` | 6 | Qwen 3.5/2.5, General VLM, General GGUF, Local LLM, llama.cpp doctor |
 | `long_video` | 12 | Overlap meta-batch, long-video meta-batch loader, LongShot nodes (needs VideoHelperSuite) |
 | `lora_training` | 14 | LTX 2.3, Krea 2 and Z-Image LoRA trainers, installers, XYZ plots, LoRA Dataset Creator |
-| `ltx_minimax_tools` | 16 | LTX guiders, first/last guides, IC grid, looping sampler, sigma presets, MiniMax chunks/still/trim, upscaler panel |
+| `ltx_minimax_tools` | 20 | LTX guiders, first/last guides, IC grid, looping sampler, sigma presets, MiniMax chunks/still/trim, upscaler panel, DMAD + Long Scenes pass 2 prompt and audio switch (`MiniMaxH3LongScene/`) |
 | `music_audio` | 19 | YuE2, SheetSage2, MiniMax Music 3 helpers, VoxCPM2, audio load/save |
 | `ui_tools` | 10 | Video Editor, Prompt Creator V1/V2, Start Image Storyboard, Node Canvas |
 
@@ -28,6 +28,7 @@ Packs can be installed alongside the main pack and each other.
 
 - LTX 2.3 V5.x workflows (in the main `Workflows/`): `general_utilities`, `ui_tools`, `llm_nodes`
 - MiniMax upscaler workflows: `long_video`, `general_utilities`
+- MiniMax H3 DMAD + Long Scenes workflow (`ltx_minimax_tools/workflows/`): `ltx_minimax_tools` and the main pack (VRGDG H3 Chunked Pass 2, latent upscaler loader). Regenerate it with `ltx_minimax_tools/scripts/export_dmad_long_scene_workflow.py`.
 - Z-Image Upscale AnyImage / Wan 2.2 workflows: `general_utilities`
 - YuE2 Cover/Starter workflows: main pack
 - LoRA Dataset Creator workflows: `general_utilities` and the main pack
