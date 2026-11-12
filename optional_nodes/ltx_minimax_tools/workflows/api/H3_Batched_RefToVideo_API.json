@@ -1,0 +1,542 @@
+{
+  "115": {
+    "inputs": {
+      "value": 1920
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "INPUT - Desired Final Width"
+    }
+  },
+  "119": {
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load Video VAE"
+    }
+  },
+  "120": {
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load Audio VAE"
+    }
+  },
+  "122": {
+    "inputs": {
+      "samples": [
+        "300",
+        0
+      ],
+      "vae": [
+        "119",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode - Two-Pass Refined Upscaled Latent"
+    }
+  },
+  "123": {
+    "inputs": {
+      "sampler_name": "lcm"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "PASS 1 - Sampler (lcm)"
+    }
+  },
+  "124": {
+    "inputs": {
+      "scheduler": "simple",
+      "steps": 4,
+      "denoise": 1,
+      "model": [
+        "9401",
+        0
+      ]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "PASS 1 - Scheduler (DMAD 4 steps)"
+    }
+  },
+  "125": {
+    "inputs": {
+      "noise": [
+        "129",
+        0
+      ],
+      "guider": [
+        "126",
+        0
+      ],
+      "sampler": [
+        "123",
+        0
+      ],
+      "sigmas": [
+        "124",
+        0
+      ],
+      "latent_image": [
+        "172",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "PASS 1 - Sampler (low resolution)"
+    }
+  },
+  "126": {
+    "inputs": {
+      "model": [
+        "9401",
+        0
+      ],
+      "conditioning": [
+        "136",
+        0
+      ]
+    },
+    "class_type": "BasicGuider",
+    "_meta": {
+      "title": "PASS 1 - Guider"
+    }
+  },
+  "128": {
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "type": "minimax",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "129": {
+    "inputs": {
+      "noise_seed": 1
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "INPUT - Seed"
+    }
+  },
+  "131": {
+    "inputs": {
+      "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17",
+      "values.a": [
+        "132",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "H3 Duration To Valid Frame Count"
+    }
+  },
+  "132": {
+    "inputs": {
+      "value": 15.0
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "INPUT - Duration"
+    }
+  },
+  "136": {
+    "inputs": {
+      "prompt": [
+        "138",
+        0
+      ],
+      "width": [
+        "186",
+        1
+      ],
+      "height": [
+        "187",
+        1
+      ],
+      "length": [
+        "131",
+        1
+      ],
+      "ref_image_size": "match",
+      "clip": [
+        "128",
+        0
+      ],
+      "vae": [
+        "119",
+        0
+      ],
+      "audio_vae": [
+        "120",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "301",
+        0
+      ],
+      "ref_images.ref_image_1": [
+        "302",
+        0
+      ],
+      "ref_audios.ref_audio_0": [
+        "171",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "_meta": {
+      "title": "MiniMax H3 Reference to Video"
+    }
+  },
+  "138": {
+    "inputs": {
+      "value": ""
+    },
+    "class_type": "PrimitiveStringMultiline",
+    "_meta": {
+      "title": "INPUT - Prompt"
+    }
+  },
+  "141": {
+    "inputs": {
+      "model_name": "Minimax-h3_Singularity_ref2va_v2_int8.safetensors",
+      "weight_dtype": "default",
+      "compute_dtype": "default",
+      "patch_cublaslinear": false,
+      "sage_attention": "auto",
+      "enable_fp16_accumulation": true
+    },
+    "class_type": "DiffusionModelLoaderKJ",
+    "_meta": {
+      "title": "Diffusion Model Loader KJ"
+    }
+  },
+  "142": {
+    "inputs": {
+      "frame_rate": 24,
+      "loop_count": 0,
+      "filename_prefix": "VRGDG_H3",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 19,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "122",
+        0
+      ],
+      "audio": [
+        "304",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "SAVE - Final Video"
+    }
+  },
+  "171": {
+    "inputs": {
+      "built_in_audio": true,
+      "audio_file": "",
+      "seek_seconds": 0,
+      "duration": [
+        "132",
+        0
+      ]
+    },
+    "class_type": "VRGDG_MiniMaxH3AudioSource",
+    "_meta": {
+      "title": "AUDIO - My song or built-in audio (switch)"
+    }
+  },
+  "172": {
+    "inputs": {
+      "av_latent": [
+        "136",
+        1
+      ],
+      "audio_vae": [
+        "120",
+        0
+      ],
+      "built_in_audio": [
+        "171",
+        1
+      ],
+      "song": [
+        "171",
+        0
+      ]
+    },
+    "class_type": "VRGDG_MiniMaxH3AudioLockSwitch",
+    "_meta": {
+      "title": "Lock song (skipped for built-in audio)"
+    }
+  },
+  "184": {
+    "inputs": {
+      "value": 1088
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "INPUT - Desired Final Height"
+    }
+  },
+  "185": {
+    "inputs": {
+      "value": 2.0
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "INPUT - Learned Latent Upscale Scale"
+    }
+  },
+  "186": {
+    "inputs": {
+      "expression": "max(32, ceil((a / b) / 32) * 32)",
+      "values.a": [
+        "115",
+        0
+      ],
+      "values.b": [
+        "185",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "AUTO - Aligned First Pass Width"
+    }
+  },
+  "187": {
+    "inputs": {
+      "expression": "max(32, ceil((a / b) / 32) * 32)",
+      "values.a": [
+        "184",
+        0
+      ],
+      "values.b": [
+        "185",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "AUTO - Aligned First Pass Height"
+    }
+  },
+  "190": {
+    "inputs": {
+      "value": 3
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "INPUT - Refinement Schedule Steps"
+    }
+  },
+  "191": {
+    "inputs": {
+      "value": 0.2
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "INPUT - Refinement Denoise"
+    }
+  },
+  "192": {
+    "inputs": {
+      "scheduler": "simple",
+      "steps": [
+        "190",
+        0
+      ],
+      "denoise": [
+        "191",
+        0
+      ],
+      "model": [
+        "207",
+        0
+      ]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "PASS 2 - Adjustable Refinement Scheduler"
+    }
+  },
+  "207": {
+    "inputs": {
+      "lora_name": "minimax_h3_open_regenerate_2k_refiner_rank_16_bf16.safetensors",
+      "strength_model": 0.7,
+      "model": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "PASS 2 - Refiner LoRA (DMAD)"
+    }
+  },
+  "210": {
+    "inputs": {
+      "sampler_name": "res_multistep"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "INPUT - Pass 2 Sampler"
+    }
+  },
+  "300": {
+    "inputs": {
+      "value": [
+        "9502",
+        0
+      ]
+    },
+    "class_type": "VRGDG_H3StandaloneUnloadModels",
+    "_meta": {
+      "title": "Unload models before final video VAE decode"
+    }
+  },
+  "301": {
+    "inputs": {
+      "image": ""
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "REFERENCE 1 - <Picture 1>"
+    }
+  },
+  "302": {
+    "inputs": {
+      "image": ""
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "REFERENCE 2 - <Picture 2>"
+    }
+  },
+  "303": {
+    "inputs": {
+      "source": [
+        "9502",
+        1
+      ]
+    },
+    "class_type": "PreviewAny",
+    "_meta": {
+      "title": "Window report"
+    }
+  },
+  "304": {
+    "inputs": {
+      "av_latent": [
+        "125",
+        0
+      ],
+      "audio_vae": [
+        "120",
+        0
+      ],
+      "built_in_audio": [
+        "171",
+        1
+      ],
+      "song": [
+        "171",
+        0
+      ]
+    },
+    "class_type": "VRGDG_MiniMaxH3VideoSoundtrack",
+    "_meta": {
+      "title": "Video soundtrack (song or built-in)"
+    }
+  },
+  "9201": {
+    "inputs": {
+      "lora_name": "dmad_minimax_h3_4step_full_critic_comfyui.safetensors",
+      "strength_model": 1,
+      "model": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "PASS 1 - DMAD 4-step LoRA"
+    }
+  },
+  "9401": {
+    "inputs": {
+      "shift_video": 12,
+      "shift_audio": 2,
+      "model": [
+        "9201",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3SigmaShift",
+    "_meta": {
+      "title": "MiniMax H3 Sigma Shift - pass1"
+    }
+  },
+  "9502": {
+    "inputs": {
+      "scale": [
+        "185",
+        0
+      ],
+      "chunk_seconds": 8,
+      "overlap_seconds": 1.6,
+      "overlap_mode": "locked",
+      "seed": 42,
+      "tail_trim_seconds": 0.7,
+      "max_window_tokens": 0,
+      "upscale": "per_window",
+      "latent": [
+        "125",
+        0
+      ],
+      "model": [
+        "207",
+        0
+      ],
+      "conditioning": [
+        "136",
+        0
+      ],
+      "sampler": [
+        "210",
+        0
+      ],
+      "sigmas": [
+        "192",
+        0
+      ],
+      "upscale_model_name": "minimax_h3_latent_upscaler_3d_bf16.safetensors",
+      "device": "cuda",
+      "precision": "bf16"
+    },
+    "class_type": "VRGDG_H3StandalonePass2",
+    "_meta": {
+      "title": "VRGDG H3 Standalone Chunked Pass 2 - refine in windows"
+    }
+  }
+}

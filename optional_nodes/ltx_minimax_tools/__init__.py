@@ -1,4 +1,4 @@
-"""VRGDG LTX and MiniMax H3 sampling tools: CFG and sigma guiders, first/last-frame guides, IC ingredients grid, looping sampler, sigma presets, MiniMax connected chunks, still images, continuation trimming, the upscaler control panel, and the DMAD + Long Scenes workflow nodes (pass 2 prompt, song / built-in audio switch)."""
+"""VRGDG LTX and MiniMax H3 sampling tools: CFG and sigma guiders, first/last-frame guides, IC ingredients grid, looping sampler, sigma presets, MiniMax connected chunks, still images, continuation trimming, the upscaler control panel, the DMAD + Long Scenes workflow nodes (pass 2 prompt, song / built-in audio switch), the standalone chunked pass 2 and the VRGDG MiniMax studio."""
 import importlib
 
 _MODULES = (
@@ -12,6 +12,8 @@ _MODULES = (
     ".VRGDG_MiniMaxH3StillImage",
     ".VRGDG_MiniMaxH3TrimContinuation",
     ".MiniMaxH3LongScene",
+    ".h3_standalone_pass2",
+    ".VRGDG_MiniMaxStudio",
 )
 
 NODE_CLASS_MAPPINGS = {}
