@@ -1,6 +1,6 @@
 # VRGDG Custom Node Pack
 
-**171 ComfyUI nodes for image and video processing, face repair, audio, local LLMs, LoRA training, and creative workflow tools.**
+**174 ComfyUI nodes for image and video processing, face repair, audio, local LLMs, LoRA training, and creative workflow tools.**
 
 Build face-repair workflows, process long videos, prepare music and speech, create prompts, train LoRAs, and add practical image, text, JSON, and batch utilities to your ComfyUI workflows.
 
@@ -13,7 +13,7 @@ Build face-repair workflows, process long videos, prepare music and speech, crea
 | Local LLMs | 6 | Qwen prompt generation, VLM and GGUF tools, local LLM connections, and llama.cpp diagnostics |
 | Long Video | 12 | Overlapping video batches, audio windows, long-video loading, and LongShot planning tools |
 | LoRA Training | 14 | LTX, Krea, and Z-Image training tools, dataset creation, installers, and preview grids |
-| LTX & MiniMax H3 | 20 | Guidance and sigma controls, first/last-frame guides, looping, ingredient grids, connected chunks, still images, continuation trimming, and the DMAD + Long Scenes pass 2 prompt and song / built-in audio switch |
+| LTX & MiniMax H3 | 23 | Guidance and sigma controls, first/last-frame guides, looping, ingredient grids, connected chunks, still images, continuation trimming, the DMAD + Long Scenes pass 2 prompt and song / built-in audio switch, a standalone chunked pass 2, and the VRGDG MiniMax studio |
 | Music & Audio | 19 | YuE2, SheetSage2, MiniMax Music 3 helpers, VoxCPM2 speech, and audio loading/saving |
 | Workflow UIs | 10 | Video Editor, Prompt Creator, Start Image Storyboard, and Node Canvas prototype |
 
@@ -53,6 +53,8 @@ Restart ComfyUI and refresh your browser with **Ctrl+F5**.
 
 Right-click the ComfyUI canvas and search for the node you want to use. Node categories include **VRGDG** and **VRGameDevGirl**.
 
+For MiniMax H3, add the **VRGDG MiniMax** node and click its button: pick text, image or reference to video, write a prompt and generate one two-pass video. Its Setup check lists any missing custom nodes and models with download links.
+
 Start with one of the included workflows:
 
 - [Face Fix](optional_nodes/face_fix/workflows/VRGDG_FaceFix_Workflow.json)
@@ -72,6 +74,7 @@ Each tool has its own model and runtime requirements. Generation model weights a
 
 - **LTX looping:** requires [ComfyUI-LTXVideo](https://github.com/Lightricks/ComfyUI-LTXVideo).
 - **MiniMax H3 DMAD + Long Scenes workflow:** also requires [VRGameDevGirl's AI Video Builder](https://github.com/vrgamegirl19/comfyui-vrgamedevgirl) (VRGDG H3 Chunked Pass 2 and the latent upscaler loader), [Comfyui_Minimax_h3_latent_Upscaler](https://github.com/LBH-123-AI/Comfyui_Minimax_h3_latent_Upscaler), ComfyUI-KJNodes and ComfyUI-VideoHelperSuite. The workflow's first note lists the model files.
+- **VRGDG MiniMax studio:** requires [ComfyUI-KJNodes](https://github.com/kijai/ComfyUI-KJNodes), [ComfyUI-VideoHelperSuite](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite) and [Comfyui_Minimax_h3_latent_Upscaler](https://github.com/LBH-123-AI/Comfyui_Minimax_h3_latent_Upscaler); the Video Builder is not needed. The studio's Setup check links every model file.
 - **Long-video loading and VHS workflows:** require [ComfyUI-VideoHelperSuite](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite).
 - **Local LLMs:** configure a supported model or local server. GGUF tools require `llama-cpp-python`; installation may need a compatible wheel or local build tools.
 - **LoRA training:** configure the external training tools, datasets, and model paths using the relevant installer and settings nodes.
