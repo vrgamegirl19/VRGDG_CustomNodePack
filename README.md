@@ -47,7 +47,29 @@ git -C .\ComfyUI\custom_nodes clone https://github.com/vrgamegirl19/VRGDG_Custom
 .\python_embeded\python.exe -m pip install -r .\ComfyUI\custom_nodes\VRGDG_CustomNodePack\requirements.txt
 ```
 
-Restart ComfyUI and refresh your browser with **Ctrl+F5**.
+in some systems or ComfyUI Versions you might get the error: 
+
+```powershell
+...
+Collecting llama-cpp-python (from -r C:\Users\Nutzer\Desktop\ComfyUI_windows_portable\ComfyUI\custom_nodes\VRGDG_CustomNodePack\optional_nodes\llm_nodes\requirements.txt (line 4))
+  Using cached llama_cpp_python-0.3.36.tar.gz (76.6 MB)
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  error: backend-unavailable
+
+  × Cannot import build backend 'scikit_build_core.build'.
+  ╰─> ModuleNotFoundError: No module named 'scikit_build_core'
+
+  note: This is likely not a problem with pip.
+ERROR: Failed to build 'llama-cpp-python' when calling build backend hook get_requires_for_build_wheel+
+```
+in this case you need to execute the following commands: 
+
+```powershell
+.\python_embeded\python.exe -m pip install --upgrade pip
+.\python_embeded\python.exe -m pip install scikit-build-core cmake ninja
+```
+Then try again. Restart ComfyUI and refresh your browser with **Ctrl+F5**.
 
 ## Getting started
 
